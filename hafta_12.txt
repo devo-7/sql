@@ -1,0 +1,48 @@
+ALTER PROCEDURE [dbo].[detayaurun]
+(@musteri_kodu int,
+@tarih1 datetime,
+@tarih2 datetime)
+AS
+BEGIN
+	
+	SELECT     musteri.musteri_kodu as KODU, musteri.musteri_adi AS ADI, musteri.musteri_soyadi AS SOYADI, alinan_urun.urun_fiyat AS FIYAT, alinan_urun.urun_adet AS ADET, 
+                      alinan_urun.urun_tutar AS TUTAR, urun_kodu.urun_adi AS CINSI, alinan_urun.tarih AS VER_TARIH
+FROM         musteri INNER JOIN
+                      alinan_urun ON musteri.musteri_kodu = alinan_urun.musteri_kodu INNER JOIN
+                      urun_kodu ON alinan_urun.urun_kodu = urun_kodu.urun_kodu
+
+where (alinan_urun.tarih >= @tarih1) AND (alinan_urun.tarih <= @tarih2) AND (musteri.musteri_kodu = @musteri_kodu)
+end
+
+
+exec detayvurun
+@musteri_kodu=203,
+@tarih1='2014',
+@tarih2='2015'
+
+
+
+create PROCEDURE [dbo].[fulhesap4]
+
+(@musteri_kodu int)
+
+as
+BEGIN
+SELECT * FROM dbo.musteri 
+WHERE  musteri_kodu=@musteri_kodu
+END
+BEGIN
+SELECT* FROM dbo.verilen_urun
+WHERE  musteri_kodu=@musteri_kodu
+END 
+BEGIN
+SELECT *FROM dbo.para
+WHERE  musteri_kodu=@musteri_kodu
+END
+begin
+SELECT * FROM dbo.alinan_sut
+WHERE  musteri_kodu=@musteri_kodu
+END
+
+
+exec fulhesap4 

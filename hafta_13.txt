@@ -1,0 +1,17 @@
+USE [bawary_sut]
+GO
+/****** Object:  Trigger [dbo].[yael_yelil]    Script Date: 20.12.2025 16:48:31 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER trigger [dbo].[yael_yelil]
+on [dbo].[musteri]
+after 
+update 
+as 
+begin
+update alinan_sut
+set sut_tutar=sut_tutar*40
+select * from musteri
+end
