@@ -1,0 +1,7 @@
+SELECT        kategoriler.category_name
+FROM            urunler INNER JOIN
+                         kategoriler ON urunler.category_id = kategoriler.category_id
+WHERE        (urunler.list_price >
+                             (SELECT        AVG(list_price) AS Expr1
+                               FROM            urunler AS urunler_1))
+order by urunler.list_price

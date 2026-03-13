@@ -1,0 +1,3 @@
+SELECT        production.products.model_year, production.stocks.quantity, production.products.list_price
+FROM            production.products INNER JOIN
+                         production.stocks ON production.products.product_id = production.stocks.product_id
